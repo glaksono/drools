@@ -1,12 +1,18 @@
 import model.Customer;
 import model.Order;
+import org.drools.compiler.kproject.models.KieSessionModelImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
+import org.kie.api.builder.model.KieBaseModel;
+import org.kie.api.builder.model.KieModuleModel;
+import org.kie.api.builder.model.KieSessionModel;
 import org.kie.api.cdi.KSession;
+import org.kie.api.conf.EqualityBehaviorOption;
+import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.io.Resource;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -24,7 +30,19 @@ public class RuleTest {
     @BeforeAll
     public static void setup(){
         KieServices ks = KieServices.Factory.get();
-        kc = ks.getKieClasspathContainer();
+        KieFileSystem fileSystem = ks.newKieFileSystem();
+        KieRepository repository = ks.getRepository();
+        KieModuleModel module = ks.newKieModuleModel();
+        module.newKieBaseModel("my-new-module").setDefault(true)
+//                .addPackage("rules")
+                .newKieSessionModel("TestBaseSession")
+                .setType(KieSessionModel.KieSessionType.STATELESS);
+        String kmodule = module.toXML();
+        fileSystem.writeKModuleXML(kmodule);
+
+        fileSystem.write(ResourceFactory.newClassPathResource("this/test.drl"));
+        ks.newKieBuilder(fileSystem).buildAll();
+        kc = ks.newKieContainer(repository.getDefaultReleaseId());
     }
 
     @Test
