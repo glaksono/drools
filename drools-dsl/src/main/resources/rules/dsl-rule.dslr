@@ -1,19 +1,17 @@
-package dsl_rule
-import gl.drools.model.*
+import gl.drools.model.Customer;
+import gl.drools.model.Order;
+import gl.drools.model.Discount;
 import java.time.LocalDate
 import java.util.Date
 import java.time.ZoneId
+dialect "mvel"
 
-//rule "Order discount"
-//    when
-//        $c: Customer($orders: orders, discount == null)
-//        forall(Order(paid == true) from $orders )
-//        eval($orders.size() > 1)
-//    then Discount d = new Discount(0.3d, Date.from(LocalDate.now().plusDays(15).
-//    atStartOfDay(ZoneId.systemDefault()).toInstant()));
-//    $c.setDiscount(d);
-//end
 
 rule "test"
-when Customer exists
-then Give discount 30 percent
+when
+    There is a customer with no open orders
+        - currently has no discount applied
+        - with previous orders are more than 1
+then
+    Give discount 30 % with validity of 15 days
+end
