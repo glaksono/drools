@@ -1,4 +1,4 @@
-package controller;
+package app.controller;
 
 import model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.RuleSimpleService;
+import app.service.RuleSimpleService;
 
 @RestController
 @RequestMapping("/api")

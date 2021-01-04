@@ -1,4 +1,4 @@
-package service;
+package app.service;
 
 
 import model.Customer;
@@ -14,7 +14,7 @@ public class RuleSimpleService {
     private KieContainer container;
 
     public void advise(Customer c){
-        StatelessKieSession session = container.newStatelessKieSession("springRuleSession");
+        StatelessKieSession session = container.newStatelessKieSession("spring-remote-session");
         session.execute(c);
     }
 }

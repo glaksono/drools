@@ -1,3 +1,5 @@
+package ruleTest;
+
 import model.Customer;
 import model.Order;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +14,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.StatelessKieSession;
 import org.kie.internal.io.ResourceFactory;
 
-public class RuleTest {
+public class DroolsModuleSessionTest {
 
 
     private static KieContainer kc;
@@ -30,7 +32,7 @@ public class RuleTest {
                 .setType(KieSessionModel.KieSessionType.STATELESS);
         String kmodule = module.toXML();
         fileSystem.writeKModuleXML(kmodule);
-        fileSystem.write(ResourceFactory.newClassPathResource("rules/test.drl"));
+        fileSystem.write(ResourceFactory.newClassPathResource("rules/simple.drl"));
         ks.newKieBuilder(fileSystem).buildAll();
         kc = ks.newKieContainer(repository.getDefaultReleaseId());
     }
