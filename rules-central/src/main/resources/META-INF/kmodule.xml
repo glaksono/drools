@@ -1,6 +1,6 @@
 <kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.drools.org/xsd/kmodule">
-    <kbase name="testbase" packages="rules" default="true" >
-        <ksession name="TestBaseSession" type="stateless"/>
+    <kbase name="spring-kmodule" packages="rule1" default="true" >
+        <ksession name="spring-remote-session" type="stateless"/>
     </kbase>
 </kmodule>

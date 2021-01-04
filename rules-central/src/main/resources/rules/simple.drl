@@ -1,0 +1,28 @@
+package rule1
+dialect "mvel"
+import model.Customer
+import model.Discount
+import model.Order
+
+rule "test rule01"
+    when
+        $c : Customer(age > 20)
+    then
+        $c.setMembership("GOLD");
+end
+
+rule "test rule02"
+    when
+        $c : Customer(age < 20)
+    then
+        $c.setMembership("SILVER");
+end
+
+rule "test rule03"
+    when
+        $c : Customer( age > 18, $order: order != null, $order.total > 10)
+    then
+        $discount = new Discount();
+        $discount.setValue(0.5);
+        $c.setDiscount($discount);
+end

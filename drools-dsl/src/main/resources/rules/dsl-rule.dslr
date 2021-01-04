@@ -1,0 +1,19 @@
+package dsl_rule
+import gl.drools.model.*
+import java.time.LocalDate
+import java.util.Date
+import java.time.ZoneId
+
+//rule "Order discount"
+//    when
+//        $c: Customer($orders: orders, discount == null)
+//        forall(Order(paid == true) from $orders )
+//        eval($orders.size() > 1)
+//    then Discount d = new Discount(0.3d, Date.from(LocalDate.now().plusDays(15).
+//    atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//    $c.setDiscount(d);
+//end
+
+rule "test"
+when Customer exists
+then Give discount 30 percent
